@@ -1,0 +1,30 @@
+# Python environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables / secrets
+.env
+
+# Personal project notes
+agent1_project_notes.txt
+environment_details.txt
+
+
+# Local datasets
+data/raw/
+
+# Model files
+models/
+
+# Vector database persistence
+chroma_db/
+
+# OS / editor files
+.DS_Store
+Thumbs.db
