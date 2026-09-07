@@ -1,3 +1,6 @@
+from pathlib import Path
+
+import joblib
 import numpy as np
 
 from agent1.classification.tfidf_classifier import TfidfIntentClassifier
@@ -19,12 +22,15 @@ class IntentClassifierEnsemble:
         self.tfidf_weight = tfidf_weight
         self.semantic_weight = 1.0 - tfidf_weight
 
+        self.tfidf_params = tfidf_params or {}
+        self.semantic_params = semantic_params or {}
+
         self.tfidf_classifier = TfidfIntentClassifier(
-            **(tfidf_params or {})
+            **self.tfidf_params
         )
 
         self.semantic_classifier = SemanticIntentClassifier(
-            **(semantic_params or {})
+            **self.semantic_params
         )
 
     def fit(self, X, y):
@@ -117,22 +123,68 @@ class IntentClassifierEnsemble:
             sorted_indices = np.argsort(row)[::-1]
 
             best_idx = sorted_indices[0]
-            second_idx = sorted_indices[1]
 
             best_score = float(row[best_idx])
-            second_score = float(row[second_idx])
+
+            if len(sorted_indices) > 1:
+                second_idx = sorted_indices[1]
+                second_score = float(row[second_idx])
+                second_intent = self.classes_[second_idx]
+                margin = best_score - second_score
+            else:
+                second_score = None
+                second_intent = None
+                margin = None
 
             results.append(
                 {
                     "intent": self.classes_[best_idx],
                     "score": best_score,
-                    "margin": best_score - second_score,
-                    "second_intent": self.classes_[second_idx],
+                    "margin": margin,
+                    "second_intent": second_intent,
                     "second_score": second_score,
                 }
             )
 
         return results
+
+    def save(self, path):
+        """Save the fitted ensemble to disk."""
+        path = Path(path)
+
+        path.parent.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+
+        joblib.dump(self, path)
+
+    @classmethod
+    def load(cls, path):
+        """Load a previously saved ensemble from disk."""
+        path = Path(path)
+
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Saved ensemble model not found: {path}"
+            )
+
+        model = joblib.load(path)
+
+        if not isinstance(model, cls):
+            raise TypeError(
+                f"Loaded object is not an instance of {cls.__name__}."
+            )
+
+        return model
+
+    def is_fitted(self):
+        """Return True if both underlying classifiers appear fitted."""
+        try:
+            self._check_classes()
+            return True
+        except (AttributeError, ValueError):
+            return False
 
     def _check_classes(self):
         """Ensure both classifiers use identical class ordering."""
