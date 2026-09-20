@@ -1,6 +1,6 @@
 """Semantic intent classifier using sentence embeddings and Logistic Regression."""
 
-from sentence_transformers import SentenceTransformer
+# from sentence_transformers import SentenceTransformer
 from sklearn.linear_model import LogisticRegression
 
 
@@ -23,9 +23,12 @@ class SemanticIntentClassifier:
             max_iter=max_iter
         )
 
+
     def _load_embedding_model(self):
         """Load the sentence-transformer model when first needed."""
         if self.embedding_model is None:
+            from sentence_transformers import SentenceTransformer
+
             self.embedding_model = SentenceTransformer(
                 self.model_name,
                 device=self.device,
