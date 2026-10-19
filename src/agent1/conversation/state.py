@@ -4,6 +4,9 @@ from agent1.conversation.message import (
     MessageType,
 )
 
+from typing import Any
+
+from agent1.analysis.action_plan import ActionPlan, RequestType
 
 class ConversationState:
     """
@@ -21,6 +24,11 @@ class ConversationState:
         # Optional clarification question currently
         # waiting for a user response.
         self.pending_clarification: str | None = None
+
+        # A resolved action waiting for execution arguments.
+        self.pending_action_plan: ActionPlan | None = None
+        self.pending_arguments: dict[str, Any] = {}
+        self.required_arguments: list[str] = []
 
     # ---------------------------------------------------------
     # Messages
@@ -125,9 +133,63 @@ class ConversationState:
 
     def clear(self):
         self.messages.clear()
-
-        self.pending_routing_decision = None
-        self.pending_clarification = None
+        self.resolve_clarification()
+        self.clear_pending_action()
 
     def __len__(self):
         return len(self.messages)
+
+    def start_pending_action(
+        self,
+        action_plan: ActionPlan,
+        required_arguments: list[str],
+        arguments: dict[str, Any] | None = None,
+    ):
+        """Remember a resolved action and its execution requirements."""
+
+        if action_plan.request_type != RequestType.SINGLE_ACTION:
+            raise ValueError("Only a single action can be pending execution.")
+
+        # The intended action is now resolved.
+        self.resolve_clarification()
+
+        self.pending_action_plan = action_plan.model_copy(deep=True)
+        self.pending_arguments = dict(arguments or {})
+        self.required_arguments = list(required_arguments)
+
+
+    def update_pending_arguments(self, **arguments):
+        """Store arguments collected for the pending action."""
+
+        if self.pending_action_plan is None:
+            raise ValueError("There is no pending action.")
+
+        self.pending_arguments.update(arguments)
+
+
+    def get_missing_arguments(self) -> list[str]:
+        """Find required arguments that are absent or blank."""
+
+        missing = []
+
+        for name in self.required_arguments:
+            value = self.pending_arguments.get(name)
+
+            if value is None or (
+                isinstance(value, str) and not value.strip()
+            ):
+                missing.append(name)
+
+        return missing
+
+
+    def has_pending_action(self) -> bool:
+        return self.pending_action_plan is not None
+
+
+    def clear_pending_action(self):
+        """Clear execution state while preserving conversation history."""
+
+        self.pending_action_plan = None
+        self.pending_arguments.clear()
+        self.required_arguments.clear()
