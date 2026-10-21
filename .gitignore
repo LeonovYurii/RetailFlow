@@ -26,6 +26,9 @@ data/processed/embeddings/
 # Local datasets
 data/raw/
 
+# Keep for a while
+data/finetuning/
+
 # Model files
 models/
 
