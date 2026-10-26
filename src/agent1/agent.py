@@ -1,3 +1,5 @@
+import re
+
 import numpy as np
 
 from agent1.analysis.action_plan import RequestType
@@ -31,6 +33,9 @@ class Agent:
         # Expose the latest analysis for notebook inspection.
         self.last_routing_decision = None
         self.last_action_plan = None
+        self.last_pending_decision = None
+        self.last_pending_error = None
+        self._fresh_request = False
 
     def handle_message(self, text: str) -> str:
         text = text.strip()
@@ -43,12 +48,49 @@ class Agent:
         self.action_runner.last_tool_result = None
         self.state.add_user_message(text)
 
-        # Initial implementation: assume this reply supplies arguments
-        # for the pending action. Intent changes will be handled next.
+        self.last_pending_decision = None
+        self.last_pending_error = None
         if self.state.has_pending_action():
-            return self.action_runner.resume(text)
-
-        plan, routing_decision = self._analyze()
+            # Only a bare ID bypasses semantic analysis. An ID inside "cancel
+            # ORD-123" must not accidentally execute the pending tracking task.
+            if re.fullmatch(r"ORD-[0-9]+", text, flags=re.IGNORECASE):
+                decision = "continue"
+            else:
+                try:
+                    decision = self.analyzer.classify_pending_reply(
+                        self.state.pending_action_plan,
+                        self.state.get_missing_arguments(),
+                        text,
+                    )
+                except ValueError as exc:
+                    decision = "clarify"
+                    self.last_pending_error = str(exc)
+            self.last_pending_decision = decision
+            if decision == "continue":
+                return self.action_runner.resume(text)
+            if decision == "abandon":
+                self.state.clear_pending_action()
+                self.state.resolve_clarification()
+                self.last_action_plan = None
+                self.last_routing_decision = None
+                self._fresh_request = True
+                return self._reply("Okay, I have stopped that request. No order was cancelled.")
+            if decision == "new_request":
+                # Analyze first so malformed analysis cannot discard the task.
+                # Keep history stored, but exclude the abandoned task from this
+                # new request's classifier/analyzer input.
+                plan, routing_decision = self._analyze(current_request=text)
+                self.state.clear_pending_action()
+                self.state.resolve_clarification()
+            else:
+                return self._reply(
+                    "Would you like to continue tracking your order, stop that request, "
+                    "or ask a different question?"
+                )
+        else:
+            current_request = text if self._fresh_request else None
+            plan, routing_decision = self._analyze(current_request=current_request)
+            self._fresh_request = False
 
         if plan.request_type == RequestType.CLARIFICATION:
             question = plan.clarification_question
@@ -102,8 +144,9 @@ class Agent:
             "What would you like to check?"
         )
 
-    def _analyze(self):
-        context = self.context_builder.build_for_analyzer(self.state)
+    def _analyze(self, current_request=None):
+        context = (current_request if current_request is not None
+                   else self.context_builder.build_for_analyzer(self.state))
 
         probabilities = self.ensemble_model.predict_proba([context])[0]
 
@@ -144,3 +187,6 @@ class Agent:
             self.response_service.reset_trace()
         self.last_routing_decision = None
         self.last_action_plan = None
+        self.last_pending_decision = None
+        self.last_pending_error = None
+        self._fresh_request = False

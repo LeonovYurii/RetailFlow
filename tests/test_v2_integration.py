@@ -29,6 +29,7 @@ class Classifier:
 class Analyzer:
     def __init__(self, plan): self.plan = plan; self.calls = 0
     def analyze(self, **kwargs): self.calls += 1; return self.plan
+    def classify_pending_reply(self, *args): return "continue"
 
 def plan(intent="track_order", action=ActionType.ORDER_SERVICE):
     return ActionPlan(request_type=RequestType.SINGLE_ACTION, intent=intent, action=action, reason="test")
