@@ -14,6 +14,8 @@ notebooks/scratch/
 
 # Environment variables / secrets
 .env
+.env.*
+!.env.example
 
 # Personal project notes
 agent1_project_notes.txt
@@ -22,15 +24,11 @@ environment_details.txt
 # Generated embeddings
 data/processed/embeddings/
 
-
 # Local datasets
 data/raw/
 
 # Keep for a while
 data/finetuning/
-
-# Model files
-models/
 
 # Vector database persistence
 chroma_db/
@@ -38,3 +36,17 @@ chroma_db/
 # OS / editor files
 .DS_Store
 Thumbs.db
+
+# Model binaries and training state
+models/
+**/checkpoints/
+**/adapter_last/
+*.safetensors
+*.pt
+*.pth
+*.joblib
+*.pkl
+training_args.bin
+
+# Generated local logs
+*.log

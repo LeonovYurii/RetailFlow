@@ -16,6 +16,7 @@ class Agent:
         analyzer,
         context_builder,
         top_n_intents: int = 5,
+        response_service=None,
     ):
         self.ensemble_model = ensemble_model
         self.router = router
@@ -24,7 +25,8 @@ class Agent:
         self.top_n_intents = top_n_intents
 
         self.state = ConversationState()
-        self.action_runner = ActionRunner(self.state)
+        self.response_service = response_service
+        self.action_runner = ActionRunner(self.state, response_service=response_service)
 
         # Expose the latest analysis for notebook inspection.
         self.last_routing_decision = None
@@ -36,6 +38,9 @@ class Agent:
         if not text:
             raise ValueError("The message must not be empty.")
 
+        if self.response_service is not None:
+            self.response_service.reset_trace()
+        self.action_runner.last_tool_result = None
         self.state.add_user_message(text)
 
         # Initial implementation: assume this reply supplies arguments
@@ -65,6 +70,18 @@ class Agent:
             ):
                 return self.action_runner.start(plan, text)
 
+            if self.response_service is not None:
+                # Only informational intents enter knowledge generation.
+                information_intents = {
+                    "store_opening_hours", "store_location", "return_policy",
+                    "refund_policy", "shipping_costs", "payment_methods",
+                    "sales_period", "product_information", "customer_service",
+                    "availability", "availability_in_store", "availability_online",
+                    "recover_password",
+                }
+                if plan.intent in information_intents:
+                    return self._reply(self.response_service.respond(text, intent=plan.intent))
+
             return self._reply(
                 "This prototype currently supports order tracking. "
                 "That action is not implemented yet."
@@ -76,7 +93,10 @@ class Agent:
                 "Please send one request at a time."
             )
 
-        # Temporary response until we add general response generation.
+        if self.response_service is not None:
+            return self._reply(self.response_service.respond(text, intent=plan.intent))
+
+        # Backward-compatible response without a configured response service.
         return self._reply(
             "I can help you track an order. "
             "What would you like to check?"
@@ -119,5 +139,8 @@ class Agent:
 
     def reset(self):
         self.state.clear()
+        self.action_runner.last_tool_result = None
+        if self.response_service is not None:
+            self.response_service.reset_trace()
         self.last_routing_decision = None
         self.last_action_plan = None

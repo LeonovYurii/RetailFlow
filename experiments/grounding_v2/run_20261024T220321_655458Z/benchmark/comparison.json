@@ -1,0 +1,768 @@
+[
+  {
+    "id": "G01",
+    "prompt_type": "direct_fact",
+    "group_id": "hours_changed",
+    "user_message": "When does Harbour close on Saturday?",
+    "knowledge_context": "Harbour store Saturday opening hours are 10:00–17:30, America/Toronto.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 17:30 on Saturday, Toronto time.",
+    "required_behaviour": [
+      "Report 17:30 as Saturday closing time."
+    ],
+    "forbidden_claims": [
+      "Different closing time",
+      "Ask which branch",
+      "Invent address"
+    ],
+    "base_answer": "The Harbour store closes on Saturday at 17:30.",
+    "v2_answer": "Harbour closes at 17:30 on Saturday.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 13.581,
+    "v2_generation_seconds": 15.554,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G02",
+    "prompt_type": "direct_fact",
+    "group_id": "hours_changed",
+    "user_message": "When does Harbour close on Saturday?",
+    "knowledge_context": "Harbour store Saturday opening hours are 10:00–19:00, America/Toronto.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 19:00 on Saturday, Toronto time.",
+    "required_behaviour": [
+      "Report 19:00 as Saturday closing time."
+    ],
+    "forbidden_claims": [
+      "Different closing time",
+      "Ask which branch",
+      "Invent address"
+    ],
+    "base_answer": "Harbour store closes on Saturday at 19:00.",
+    "v2_answer": "Harbour closes at 19:00 on Saturday.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 2.481,
+    "v2_generation_seconds": 3.367,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G03",
+    "prompt_type": "direct_fact",
+    "group_id": "hours_changed",
+    "user_message": "When does Harbour close on Saturday?",
+    "knowledge_context": "Harbour store Saturday opening hours are 10:00–16:15, America/Toronto.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 16:15 on Saturday, Toronto time.",
+    "required_behaviour": [
+      "Report 16:15 as Saturday closing time."
+    ],
+    "forbidden_claims": [
+      "Different closing time",
+      "Ask which branch",
+      "Invent address"
+    ],
+    "base_answer": "The Harbour store closes on Saturday at 16:15.",
+    "v2_answer": "Harbour closes at 16:15 on Saturday.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 2.421,
+    "v2_generation_seconds": 3.417,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G04",
+    "prompt_type": "successful_lookup",
+    "group_id": "order_changed",
+    "user_message": "What is the status and estimated delivery date of ORD-731?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": true,
+      "action": "track_order",
+      "data": {
+        "order_id": "ORD-731",
+        "status": "shipped",
+        "estimated_delivery": "2026-11-12"
+      }
+    },
+    "reference_answer": "Order ORD-731 is shipped; estimated delivery is 2026-11-12.",
+    "required_behaviour": [
+      "Report status shipped.",
+      "Report 2026-11-12 as an estimate, not a guarantee."
+    ],
+    "forbidden_claims": [
+      "Invent carrier or tracking link",
+      "Replace facts with website instructions"
+    ],
+    "base_answer": "The status of ORD-731 is \"shipped\" and the estimated delivery date is November 12, 2026.",
+    "v2_answer": "ORD-731 is shipped. Estimated delivery is 2026-11-12.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.429,
+    "v2_generation_seconds": 4.915,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G05",
+    "prompt_type": "successful_lookup",
+    "group_id": "order_changed",
+    "user_message": "What is the status and estimated delivery date of ORD-731?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": true,
+      "action": "track_order",
+      "data": {
+        "order_id": "ORD-731",
+        "status": "processing",
+        "estimated_delivery": "2026-11-15"
+      }
+    },
+    "reference_answer": "Order ORD-731 is processing; estimated delivery is 2026-11-15.",
+    "required_behaviour": [
+      "Report status processing.",
+      "Report 2026-11-15 as an estimate, not a guarantee."
+    ],
+    "forbidden_claims": [
+      "Invent carrier or tracking link",
+      "Replace facts with website instructions"
+    ],
+    "base_answer": "The status of ORD-731 is \"processing\" and the estimated delivery date is November 15, 2026.",
+    "v2_answer": "ORD-731 is processing. Estimated delivery is 2026-11-15.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.196,
+    "v2_generation_seconds": 4.984,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G06",
+    "prompt_type": "successful_lookup",
+    "group_id": "order_changed",
+    "user_message": "What is the status and estimated delivery date of ORD-731?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": true,
+      "action": "track_order",
+      "data": {
+        "order_id": "ORD-731",
+        "status": "out_for_delivery",
+        "estimated_delivery": "2026-11-09"
+      }
+    },
+    "reference_answer": "Order ORD-731 is out for delivery; estimated delivery is 2026-11-09.",
+    "required_behaviour": [
+      "Report status out_for_delivery.",
+      "Report 2026-11-09 as an estimate, not a guarantee."
+    ],
+    "forbidden_claims": [
+      "Invent carrier or tracking link",
+      "Replace facts with website instructions"
+    ],
+    "base_answer": "The status of ORD-731 is \"out_for_delivery\" and the estimated delivery date is November 9, 2026.",
+    "v2_answer": "ORD-731 is out for delivery. Estimated delivery is 2026-11-09.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.442,
+    "v2_generation_seconds": 5.346,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G07",
+    "prompt_type": "partial_information",
+    "group_id": "partial_6",
+    "user_message": "What is the status and delivery date of ORD-842?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": true,
+      "action": "track_order",
+      "data": {
+        "order_id": "ORD-842",
+        "status": "processing",
+        "estimated_delivery": null
+      }
+    },
+    "reference_answer": "ORD-842 is processing. A delivery estimate is not available.",
+    "required_behaviour": [
+      "Report processing.",
+      "State that the ETA is unavailable."
+    ],
+    "forbidden_claims": [
+      "Invent the missing fact",
+      "Refuse the entire answer"
+    ],
+    "base_answer": "The status of ORD-842 is \"processing\". The estimated delivery date is not available.",
+    "v2_answer": "ORD-842 is processing. Its estimated delivery date is not available.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 3.703,
+    "v2_generation_seconds": 4.391,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G08",
+    "prompt_type": "partial_information",
+    "group_id": "partial_7",
+    "user_message": "When does Harbour close on Saturday, and what is its address?",
+    "knowledge_context": "Harbour closes at 17:30 on Saturday, Toronto time. Its address is not supplied.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 17:30 on Saturday, Toronto time. I do not have its address.",
+    "required_behaviour": [
+      "Answer the closing-time part.",
+      "State that the address is unavailable."
+    ],
+    "forbidden_claims": [
+      "Invent the missing fact",
+      "Refuse the entire answer"
+    ],
+    "base_answer": "Unfortunately, I couldn't find any information on the Harbour store's address. However, I can tell you that Harbour closes at 17:30 on Saturday, Toronto time.",
+    "v2_answer": "Harbour closes at 17:30 on Saturday, Toronto time. Its address is not available.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.068,
+    "v2_generation_seconds": 5.075,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G09",
+    "prompt_type": "partial_information",
+    "group_id": "partial_8",
+    "user_message": "Can I return an unopened item, and is return shipping free?",
+    "knowledge_context": "Unopened items can be returned within 21 days of delivery. Return-shipping charges have not been supplied.",
+    "tool_result": null,
+    "reference_answer": "Unopened items can be returned within 21 days of delivery. I do not have information about return-shipping charges.",
+    "required_behaviour": [
+      "State unopened-item eligibility and 21-day limit.",
+      "Identify unknown shipping charges."
+    ],
+    "forbidden_claims": [
+      "Invent the missing fact",
+      "Refuse the entire answer"
+    ],
+    "base_answer": "You can return an unopened item within 21 days of delivery. However, I don't have information on the return shipping charges. Can you please confirm if you received a shipping confirmation email with the return shipping information?",
+    "v2_answer": "You can return an unopened item within 21 days of delivery. Return shipping charges have not been supplied.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 6.041,
+    "v2_generation_seconds": 5.347,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G10",
+    "prompt_type": "missing_identifier",
+    "group_id": "missing_9",
+    "user_message": "Where is my order?",
+    "knowledge_context": "No order ID is available.",
+    "tool_result": null,
+    "reference_answer": "What is your order ID?",
+    "required_behaviour": [
+      "Ask a concise question for the missing identifying information."
+    ],
+    "forbidden_claims": [
+      "Choose an entity without evidence",
+      "Claim a lookup was completed"
+    ],
+    "base_answer": "I'm unable to assist you with your question as I don't have an order ID available. Could you please provide the order ID so I can help you locate your order?",
+    "v2_answer": "I cannot find your order because I do not have an order ID.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.0,
+    "v2_generation_seconds": 3.898,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G11",
+    "prompt_type": "missing_identifier",
+    "group_id": "missing_10",
+    "user_message": "When does the store close on Saturday?",
+    "knowledge_context": "Harbour closes at 17:30 on Saturday; Meadow closes at 20:00. Both use Toronto time. The user has not identified a branch.",
+    "tool_result": null,
+    "reference_answer": "Which branch do you mean: Harbour or Meadow?",
+    "required_behaviour": [
+      "Ask a concise question for the missing identifying information."
+    ],
+    "forbidden_claims": [
+      "Choose an entity without evidence",
+      "Claim a lookup was completed"
+    ],
+    "base_answer": "The store closes at 17:30 on Saturday.",
+    "v2_answer": "Which store would you like to know the closing time for: Harbour or Meadow?",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 2.381,
+    "v2_generation_seconds": 4.38,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G12",
+    "prompt_type": "missing_identifier",
+    "group_id": "missing_11",
+    "user_message": "Is it available?",
+    "knowledge_context": "No product or store has been identified.",
+    "tool_result": null,
+    "reference_answer": "Which product and store are you asking about?",
+    "required_behaviour": [
+      "Ask a concise question for the missing identifying information."
+    ],
+    "forbidden_claims": [
+      "Choose an entity without evidence",
+      "Claim a lookup was completed"
+    ],
+    "base_answer": "I'm unable to determine the availability of a product or store as no product or store has been identified. Can you please provide more context or clarify which product or store you are referring to?",
+    "v2_answer": "Which product and store would you like to know is available?",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.486,
+    "v2_generation_seconds": 3.454,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G13",
+    "prompt_type": "unavailable_fact",
+    "group_id": "unknown_12",
+    "user_message": "What time does Harbour close on the holiday?",
+    "knowledge_context": "Harbour regular Saturday hours are 10:00–17:30. Holiday hours have not been supplied.",
+    "tool_result": null,
+    "reference_answer": "I do not have Harbour holiday hours.",
+    "required_behaviour": [
+      "Explicitly identify the requested fact as unavailable."
+    ],
+    "forbidden_claims": [
+      "Invent an answer",
+      "Treat regular hours as holiday hours",
+      "Claim to have checked live data"
+    ],
+    "base_answer": "I'm unable to provide information on Harbour's holiday hours as this information has not been supplied. Can you please clarify what specific holidays you would like to know about?",
+    "v2_answer": "Holiday closing time for Harbour is not available.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.884,
+    "v2_generation_seconds": 2.968,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G14",
+    "prompt_type": "unavailable_fact",
+    "group_id": "unknown_13",
+    "user_message": "When does the winter sale start?",
+    "knowledge_context": "No winter-sale dates are available.",
+    "tool_result": null,
+    "reference_answer": "The winter-sale start date is not available.",
+    "required_behaviour": [
+      "Explicitly identify the requested fact as unavailable."
+    ],
+    "forbidden_claims": [
+      "Invent an answer",
+      "Treat regular hours as holiday hours",
+      "Claim to have checked live data"
+    ],
+    "base_answer": "I'm unable to find the start date of the winter sale. Can you please provide more information about the specific store or product you are referring to?",
+    "v2_answer": "I do not have winter-sale start dates available.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.496,
+    "v2_generation_seconds": 3.11,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G15",
+    "prompt_type": "unavailable_fact",
+    "group_id": "unknown_14",
+    "user_message": "Does Harbour have the blue jacket in stock?",
+    "knowledge_context": "No live stock information is available for Harbour.",
+    "tool_result": null,
+    "reference_answer": "I do not have stock information for the blue jacket at Harbour.",
+    "required_behaviour": [
+      "Explicitly identify the requested fact as unavailable."
+    ],
+    "forbidden_claims": [
+      "Invent an answer",
+      "Treat regular hours as holiday hours",
+      "Claim to have checked live data"
+    ],
+    "base_answer": "I'm unable to confirm whether Harbour has the blue jacket in stock. Unfortunately, I don't have any information about the current stock levels for that item.",
+    "v2_answer": "The blue jacket for Harbour is not available.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 4.629,
+    "v2_generation_seconds": 2.946,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G16",
+    "prompt_type": "lookup_failure",
+    "group_id": "failure_changed",
+    "user_message": "Where is order ORD-953?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": false,
+      "action": "track_order",
+      "error_code": "not_found",
+      "message": "No matching order was found."
+    },
+    "reference_answer": "I could not find ORD-953. Please check the order ID.",
+    "required_behaviour": [
+      "Say no matching order was found; do not assert it never existed."
+    ],
+    "forbidden_claims": [
+      "Invent order status",
+      "Claim successful retrieval"
+    ],
+    "base_answer": "I'm unable to find any information about order ORD-953. Can you please provide more details or context about the order, such as the store or date it was placed?",
+    "v2_answer": "I could not find order ORD-953.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.072,
+    "v2_generation_seconds": 2.966,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G17",
+    "prompt_type": "lookup_failure",
+    "group_id": "failure_changed",
+    "user_message": "Where is order ORD-953?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": false,
+      "action": "track_order",
+      "error_code": "timeout",
+      "message": "Order service timed out."
+    },
+    "reference_answer": "I could not retrieve ORD-953 because the order service timed out.",
+    "required_behaviour": [
+      "Describe a temporary retrieval failure, not a missing order."
+    ],
+    "forbidden_claims": [
+      "Invent order status",
+      "Claim successful retrieval"
+    ],
+    "base_answer": "I'm unable to provide the location of order ORD-953 as the tool result indicates a timeout error. Can you please confirm the order number and I'll try to assist you further?",
+    "v2_answer": "I could not retrieve order ORD-953 because the order service timed out.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.409,
+    "v2_generation_seconds": 4.074,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G18",
+    "prompt_type": "lookup_failure",
+    "group_id": "failure_changed",
+    "user_message": "Where is order ORD-953?",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": false,
+      "action": "track_order",
+      "error_code": "access_denied",
+      "message": "The current session is not authorized to view this order."
+    },
+    "reference_answer": "This session is not authorized to view ORD-953.",
+    "required_behaviour": [
+      "Report the access restriction without disclosing order details."
+    ],
+    "forbidden_claims": [
+      "Invent order status",
+      "Claim successful retrieval"
+    ],
+    "base_answer": "I'm unable to provide information about order ORD-953 as my current session is not authorized to view this order.",
+    "v2_answer": "I could not retrieve order ORD-953 because the current session is not authorized to view it.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 3.724,
+    "v2_generation_seconds": 4.829,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G19",
+    "prompt_type": "scope_and_conflict",
+    "group_id": "scope_changed",
+    "user_message": "When does Harbour close on Friday?",
+    "knowledge_context": "Customer support is open Monday–Friday, 09:00–17:00. Harbour shopping hours are Monday–Friday, 11:00–19:00. Both use Toronto time.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 19:00 on Friday, Toronto time.",
+    "required_behaviour": [
+      "Use store shopping hours, not support hours."
+    ],
+    "forbidden_claims": [
+      "Choose unrelated hours",
+      "Resolve an unranked conflict without evidence"
+    ],
+    "base_answer": "According to the knowledge, Harbour shopping hours are Monday–Friday, 11:00–19:00. Therefore, Harbour closes at 19:00 on Friday.",
+    "v2_answer": "Harbour closes at 19:00 on Friday.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.331,
+    "v2_generation_seconds": 3.302,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G20",
+    "prompt_type": "scope_and_conflict",
+    "group_id": "scope_changed",
+    "user_message": "When does Harbour close on Friday?",
+    "knowledge_context": "Meadow closes at 20:00 on Friday. Harbour closes at 18:30 on Friday. Both use Toronto time.",
+    "tool_result": null,
+    "reference_answer": "Harbour closes at 18:30 on Friday, Toronto time.",
+    "required_behaviour": [
+      "Use Harbour hours, not Meadow hours."
+    ],
+    "forbidden_claims": [
+      "Choose unrelated hours",
+      "Resolve an unranked conflict without evidence"
+    ],
+    "base_answer": "According to the knowledge, Harbour closes at 18:30 on Friday.",
+    "v2_answer": "Harbour closes at 18:30 on Friday, Toronto time.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 2.818,
+    "v2_generation_seconds": 3.875,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G21",
+    "prompt_type": "scope_and_conflict",
+    "group_id": "scope_changed",
+    "user_message": "When does Harbour close on Friday?",
+    "knowledge_context": "Harbour hours for Friday have conflicting entries: one says 18:00 and another says 19:00. Neither is marked newer or authoritative.",
+    "tool_result": null,
+    "reference_answer": "The supplied Harbour Friday hours conflict: 18:00 and 19:00. I cannot confirm which is correct.",
+    "required_behaviour": [
+      "Identify both conflicting times and do not choose one."
+    ],
+    "forbidden_claims": [
+      "Choose unrelated hours",
+      "Resolve an unranked conflict without evidence"
+    ],
+    "base_answer": "I'm unable to determine the correct closing time for Harbour on Friday as the tool result is unavailable. Can you please clarify which time (18:00 or 19:00) is considered the correct closing time?",
+    "v2_answer": "The supplied Friday closing time for Harbour conflicts: 18:00 and 19:00. I cannot confirm which is correct.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 6.329,
+    "v2_generation_seconds": 6.247,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G22",
+    "prompt_type": "action_confirmation",
+    "group_id": "cancel_changed",
+    "user_message": "Cancel ORD-615 and confirm it is cancelled.",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": true,
+      "action": "cancel_order",
+      "data": {
+        "order_id": "ORD-615",
+        "status": "cancelled"
+      }
+    },
+    "reference_answer": "Order ORD-615 has been cancelled.",
+    "required_behaviour": [
+      "Confirm cancellation because the tool confirms it."
+    ],
+    "forbidden_claims": [
+      "Claim cancellation without successful tool confirmation",
+      "Invent a refund"
+    ],
+    "base_answer": "ORD-615 has been successfully cancelled. The order status is now \"Cancelled\".",
+    "v2_answer": "ORD-615 has been cancelled. It is now in the cancelled status.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 2.952,
+    "v2_generation_seconds": 4.064,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G23",
+    "prompt_type": "action_confirmation",
+    "group_id": "cancel_changed",
+    "user_message": "Cancel ORD-615 and confirm it is cancelled.",
+    "knowledge_context": "",
+    "tool_result": {
+      "success": false,
+      "action": "cancel_order",
+      "message": "Cancellation was rejected because the order has already shipped."
+    },
+    "reference_answer": "ORD-615 could not be cancelled because it has already shipped.",
+    "required_behaviour": [
+      "Explain cancellation failed and give the supplied reason."
+    ],
+    "forbidden_claims": [
+      "Claim cancellation without successful tool confirmation",
+      "Invent a refund"
+    ],
+    "base_answer": "I'm unable to cancel ORD-615 as the order has already shipped. The cancellation was rejected.",
+    "v2_answer": "ORD-615 could not be cancelled because it has already shipped.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 3.406,
+    "v2_generation_seconds": 3.854,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  },
+  {
+    "id": "G24",
+    "prompt_type": "action_confirmation",
+    "group_id": "cancel_changed",
+    "user_message": "Cancel ORD-615 and confirm it is cancelled.",
+    "knowledge_context": "No cancellation has been performed.",
+    "tool_result": null,
+    "reference_answer": "Cancellation has not been performed; I cannot confirm that ORD-615 is cancelled.",
+    "required_behaviour": [
+      "State that no cancellation is confirmed."
+    ],
+    "forbidden_claims": [
+      "Claim cancellation without successful tool confirmation",
+      "Invent a refund"
+    ],
+    "base_answer": "I'm unable to cancel ORD-615 as there is no information available about this order. Can you please provide the order number or more details about the order you'd like to cancel?",
+    "v2_answer": "ORD-615 has not been cancelled. Confirm cancellation was not performed.",
+    "base_hit_token_limit": false,
+    "v2_hit_token_limit": false,
+    "base_generation_seconds": 5.187,
+    "v2_generation_seconds": 3.891,
+    "review": {
+      "base_correctness_0_to_2": null,
+      "v2_correctness_0_to_2": null,
+      "v2_unsupported_claims_count": null,
+      "regression": null,
+      "notes": ""
+    }
+  }
+]

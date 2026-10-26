@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "collection_id": "demo_retail_knowledge_v1",
+  "company_name": "Demo Retail",
+  "data_status": "Synthetic demo configuration, not facts about a real retailer.",
+  "usage_notes": [
+    "Use documents as factual context for response generation. Do not use previous generated responses as verified facts.",
+    "related_intents are selection metadata; omit them from the model prompt.",
+    "Missing information means unknown, not that a service does not exist.",
+    "Customer-specific order status must come from the existing order tool, not this static collection.",
+    "Select relevant documents for each request; document selection by intent is an initial integration step, not semantic retrieval.",
+    "All newly defined procedures and hours are deliberate demo assumptions. Existing support contact values are preserved from the pilot."
+  ],
+  "documents": [
+    {
+      "id": "support_contact",
+      "title": "Customer support",
+      "related_intents": [
+        "customer_service",
+        "contact"
+      ],
+      "content": "Demo Retail customer support can be reached at support@example.com or +1-202-555-0147. Support hours are Monday–Friday, 09:00–17:00 Eastern Time. These are customer-support hours, not physical-store opening hours. The website is https://shop.example.com."
+    },
+    {
+      "id": "store_hours_central",
+      "title": "Central demo store opening hours",
+      "related_intents": [
+        "store_opening_hours",
+        "store_location"
+      ],
+      "content": "Demo Retail has a fictional demo branch named Central, identified by store_id central. Its regular shopping hours are Monday–Saturday, 10:00–18:00, and Sunday, 12:00–16:00, in the America/Toronto time zone. Holiday opening hours and its street address have not been provided. These hours apply only to Central; opening hours for other locations have not been provided."
+    },
+    {
+      "id": "return_policy",
+      "title": "Returns for ordinary merchandise",
+      "related_intents": [
+        "return_product",
+        "return_policy"
+      ],
+      "content": "Under this demo policy, unused ordinary merchandise with its original packaging can be submitted for return within 30 calendar days of delivery. Proof of purchase is required. Final-sale items are excluded. Customers can email support@example.com with their order number and the item they wish to return to request instructions. This request is not a return approval. Return-shipping charges and refund-processing times have not been specified."
+    },
+    {
+      "id": "invoice_request",
+      "title": "Requesting an invoice",
+      "related_intents": [
+        "request_invoice"
+      ],
+      "content": "To request an invoice from Demo Retail, email support@example.com with the order number. The support team handles invoice requests. An invoice-download feature on the website has not been documented, and no delivery time for an invoice has been specified."
+    },
+    {
+      "id": "product_complaint",
+      "title": "Submitting a product complaint",
+      "related_intents": [
+        "submit_product_feedback"
+      ],
+      "content": "Customers can submit a product complaint by emailing support@example.com. Include the product name, a description of the issue, and the order number if available. The assistant can help draft the complaint, but sending a chat message does not submit it to support. A complaint web form and department-routing options have not been documented."
+    },
+    {
+      "id": "account_closure",
+      "title": "Requesting account closure",
+      "related_intents": [
+        "close_account"
+      ],
+      "content": "To request account closure, contact support@example.com from the email address registered to the account. Support handles verification and the closure request. A self-service Close Account button has not been documented. Data-retention rules and the time required to close an account have not been specified. The assistant cannot claim that an account has been closed without a successful action result."
+    },
+    {
+      "id": "password_reset",
+      "title": "Password reset procedure",
+      "related_intents": [
+        "recover_password"
+      ],
+      "content": "For this demo store, open the website login page and select Forgot Password. Enter the registered email address and follow the reset instructions sent to that address. Choose a strong, unique password. Do not share passwords or reset codes in chat. If the reset cannot be completed, contact support@example.com. Resetting a password alone does not establish that every consequence of a compromised account has been resolved."
+    },
+    {
+      "id": "information_limits",
+      "title": "Information not yet available",
+      "related_intents": [
+        "sales_period",
+        "store_location",
+        "availability"
+      ],
+      "content": "This collection contains no current sale dates, discount offers, physical-store street addresses, store-locator feature description, or live product-stock records. Do not infer these details from typical retail practice. Support contact details are available in the customer-support document."
+    }
+  ]
+}

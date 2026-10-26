@@ -1,0 +1,11 @@
+{
+  "counts": {
+    "train": 240,
+    "validation": 48
+  },
+  "prompt_source_sha256": "e93829e1a51b3e7b593c298a0afd1f763e64239f76857bc448de9e23159b46fb",
+  "files": {
+    "train_v2.jsonl": "732ed4f4b9434ee6a5fafa999898542d23aae67c94b844688c09a9b198ede433",
+    "validation_v2.jsonl": "42f0556c2817ab599317f23e7775068648c01e9fab6ac8de90315302f2e57bdb"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "before": {
+    "eval_loss": 1.2845946550369263,
+    "eval_entropy": 0.7340091996228517,
+    "eval_mean_token_accuracy": 0.6654575729548041,
+    "eval_num_tokens": 0.0
+  },
+  "training": {
+    "train_runtime": 4601.7922,
+    "train_samples_per_second": 0.237,
+    "train_steps_per_second": 0.03,
+    "total_flos": 7303232989372416.0,
+    "train_loss": 0.7301637029995883,
+    "epoch": 1.0
+  },
+  "after": {
+    "eval_loss": 0.6305841207504272,
+    "eval_entropy": 0.6434688138872829,
+    "eval_mean_token_accuracy": 0.7995727293526949,
+    "eval_num_tokens": 428500.0
+  }
+}

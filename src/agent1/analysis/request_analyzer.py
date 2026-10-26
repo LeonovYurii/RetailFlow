@@ -176,7 +176,12 @@ IMPORTANT RULES
 12. Do not invent an intent or customer request that is not
     expressed or reasonably implied by the conversation.
 
-13. For a general conversational response:
+13. For an informational question that requires no execution:
+    - use "general_response",
+    - retain its specific intent label when supported by the question
+      (for example store_opening_hours, return_policy, or availability),
+    - set "action" to null.
+    For a general conversational response without a specific retail intent:
     - set "intent" to null,
     - set "action" to null,
     - leave both candidate lists empty,
