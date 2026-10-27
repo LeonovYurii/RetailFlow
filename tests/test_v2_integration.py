@@ -87,12 +87,10 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(len(a.state.get_messages()),3)
         self.assertEqual(self.service.last_mode,"generation_failed")
         self.assertIn("test failure",self.service.last_error)
-    def test_clarification_and_multi_action_do_not_generate(self):
+    def test_clarification_does_not_generate(self):
         p=ActionPlan(request_type=RequestType.CLARIFICATION, needs_clarification=True, clarification_question="Which operation?",reason="test")
         a=self.agent(p);self.assertEqual(a.handle_message("Help"),"Which operation?")
         self.assertTrue(a.state.has_pending_clarification())
-        p=ActionPlan(request_type=RequestType.MULTI_ACTION,candidate_actions=[ActionType.ORDER_SERVICE,ActionType.PRODUCT_SEARCH],reason="test")
-        self.assertIn("one request",self.agent(p).handle_message("Track and find stock"))
         self.assertFalse(self.generator.calls)
     def test_no_source_does_not_generate_facts(self):
         a=self.agent(ActionPlan(request_type=RequestType.GENERAL_RESPONSE,reason="unknown"))

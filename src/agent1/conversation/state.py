@@ -147,8 +147,8 @@ class ConversationState:
     ):
         """Remember a resolved action and its execution requirements."""
 
-        if action_plan.request_type != RequestType.SINGLE_ACTION:
-            raise ValueError("Only a single action can be pending execution.")
+        if action_plan.request_type not in (RequestType.SINGLE_ACTION, RequestType.MULTI_ACTION):
+            raise ValueError("Only resolved action plans can be pending execution.")
 
         # The intended action is now resolved.
         self.resolve_clarification()

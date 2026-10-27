@@ -29,11 +29,22 @@ REQUEST_TYPE_DESCRIPTIONS = {
 }
 
 
+class ActionStep(BaseModel):
+    intent: str = Field(min_length=1)
+    action: ActionType
+    arguments: dict[str, str | None] = Field(default_factory=dict)
+    # Dependencies/conditions are represented but deliberately not executed yet.
+    depends_on: list[int] = Field(default_factory=list)
+    condition: str | None = None
+
+
 class ActionPlan(BaseModel):
     request_type: RequestType
 
     intent: str | None = None
     action: ActionType | None = None
+
+    steps: list[ActionStep] = Field(default_factory=list)
 
     candidate_intents: list[str] = Field(default_factory=list)
     candidate_actions: list[ActionType] = Field(default_factory=list)
@@ -74,10 +85,14 @@ class ActionPlan(BaseModel):
                 )
 
         if self.request_type == RequestType.MULTI_ACTION:
-            if len(self.candidate_actions) < 2:
-                raise ValueError(
-                    "MULTI_ACTION requires at least two actions."
-                )
+            if len(self.steps) < 2:
+                raise ValueError("MULTI_ACTION requires at least two explicit steps.")
+            if self.intent is not None or self.action is not None:
+                raise ValueError("MULTI_ACTION uses steps, not top-level intent/action.")
+            if self.candidate_actions or self.candidate_intents:
+                raise ValueError("Candidate alternatives must not represent execution steps.")
+        elif self.steps:
+            raise ValueError("Only MULTI_ACTION may contain steps.")
 
         if self.request_type == RequestType.GENERAL_RESPONSE:
             if self.action is not None:

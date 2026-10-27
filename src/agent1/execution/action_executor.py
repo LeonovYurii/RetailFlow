@@ -1,4 +1,5 @@
 from agent1.tools.order_service import OrderService
+from agent1.tools.stock_service import StockService
 from agent1.tools.tool_result import ToolResult
 from agent1.analysis.action_plan import ActionPlan, RequestType
 from agent1.routing.action_types import ActionType
@@ -9,6 +10,7 @@ class ActionExecutor:
 
     def __init__(self):
         self.order_service = OrderService()
+        self.stock_service = StockService()
 
     def execute(
         self,
@@ -26,6 +28,10 @@ class ActionExecutor:
                     f"{action_plan.request_type.value}."
                 ),
             )
+
+        if (action_plan.action == ActionType.PRODUCT_SERVICE
+                and action_plan.intent == "availability"):
+            return self.stock_service.check_stock(kwargs.get("product"), kwargs.get("color"))
 
         if action_plan.action == ActionType.ORDER_SERVICE:
             return self._execute_order_action(

@@ -5,6 +5,7 @@ import numpy as np
 from agent1.analysis.action_plan import RequestType
 from agent1.conversation import ConversationState
 from agent1.execution.action_runner import ActionRunner
+from agent1.execution.multi_action_runner import MultiActionRunner
 from agent1.routing.action_types import ActionType
 
 
@@ -30,6 +31,9 @@ class Agent:
         self.response_service = response_service
         self.action_runner = ActionRunner(self.state, response_service=response_service)
 
+        self.multi_action_runner = MultiActionRunner(
+            self.state, self.action_runner.executor, response_service)
+
         # Expose the latest analysis for notebook inspection.
         self.last_routing_decision = None
         self.last_action_plan = None
@@ -46,6 +50,7 @@ class Agent:
         if self.response_service is not None:
             self.response_service.reset_trace()
         self.action_runner.last_tool_result = None
+        self.multi_action_runner.last_results = []
         self.state.add_user_message(text)
 
         self.last_pending_decision = None
@@ -53,7 +58,9 @@ class Agent:
         if self.state.has_pending_action():
             # Only a bare ID bypasses semantic analysis. An ID inside "cancel
             # ORD-123" must not accidentally execute the pending tracking task.
-            if re.fullmatch(r"ORD-[0-9]+", text, flags=re.IGNORECASE):
+            missing = self.state.get_missing_arguments()
+            waiting_for_order = bool(missing) and missing[0].split(".")[-1] == "order_id"
+            if waiting_for_order and re.fullmatch(r"ORD-[0-9]+", text, flags=re.IGNORECASE):
                 decision = "continue"
             else:
                 try:
@@ -67,7 +74,10 @@ class Agent:
                     self.last_pending_error = str(exc)
             self.last_pending_decision = decision
             if decision == "continue":
-                return self.action_runner.resume(text)
+                runner = (self.multi_action_runner
+                          if self.state.pending_action_plan.request_type == RequestType.MULTI_ACTION
+                          else self.action_runner)
+                return runner.resume(text)
             if decision == "abandon":
                 self.state.clear_pending_action()
                 self.state.resolve_clarification()
@@ -83,6 +93,8 @@ class Agent:
                 self.state.clear_pending_action()
                 self.state.resolve_clarification()
             else:
+                if self.state.pending_action_plan.request_type == RequestType.MULTI_ACTION:
+                    return self._reply("Would you like to continue these tasks, stop them, or ask a different question?")
                 return self._reply(
                     "Would you like to continue tracking your order, stop that request, "
                     "or ask a different question?"
@@ -130,10 +142,7 @@ class Agent:
             )
 
         if plan.request_type == RequestType.MULTI_ACTION:
-            return self._reply(
-                "I cannot process multiple actions together yet. "
-                "Please send one request at a time."
-            )
+            return self.multi_action_runner.start(plan, text)
 
         if self.response_service is not None:
             return self._reply(self.response_service.respond(text, intent=plan.intent))
@@ -183,6 +192,7 @@ class Agent:
     def reset(self):
         self.state.clear()
         self.action_runner.last_tool_result = None
+        self.multi_action_runner.last_results = []
         if self.response_service is not None:
             self.response_service.reset_trace()
         self.last_routing_decision = None

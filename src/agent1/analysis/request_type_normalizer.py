@@ -85,7 +85,7 @@ class RequestTypeNormalizer:
 
         if request_type == RequestType.MULTI_ACTION:
             return (
-                len(data.get("candidate_actions", [])) >= 2
+                len(data.get("steps", [])) >= 2
                 and data.get("needs_clarification") is not True
             )
 
