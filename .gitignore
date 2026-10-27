@@ -26,6 +26,7 @@ data/processed/embeddings/
 
 # Local datasets
 data/raw/
+data/local/
 
 # Keep for a while
 data/finetuning/
