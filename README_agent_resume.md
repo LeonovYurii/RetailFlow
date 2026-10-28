@@ -1,10 +1,12 @@
-# Agent1 SQLite history — step 2
+# RetailFlow SQLite history — step 2
 
-Prerequisite: install step 1 (src/agent1/persistence/sqlite_store.py). Merge this ZIP's src, notebooks, and tests folders into your Agent1 root. All files are new. Do not replace agent.py, request_analyzer.py, or either runner. No git apply command is needed.
+> Historical implementation notes for RetailFlow. For current installation and startup, use the [main README](readme.md). Original archive names, paths, commands, and notebook references are retained.
+
+Prerequisite: install step 1 (src/agent1/persistence/sqlite_store.py). Merge this ZIP's src, notebooks, and tests folders into your RetailFlow root. All files are new. Do not replace agent.py, request_analyzer.py, or either runner. No git apply command is needed.
 
 ## First check: no model required
 
-Open notebooks/18_test_agent_resume.ipynb and run parts A–C with your normal Agent1 Python environment. It creates a pending two-action fixture, saves an Agent checkpoint, restores and completes the real mock lookups in a separate Python process, saves completion, and reopens the completed history. It does not call an LLM or load model weights.
+Open notebooks/18_test_agent_resume.ipynb and run parts A–C with your normal RetailFlow Python environment. It creates a pending two-action fixture, saves an Agent checkpoint, restores and completes the real mock lookups in a separate Python process, saves completion, and reopens the completed history. It does not call an LLM or load model weights.
 
 ## Live check: reuse notebook 16's model
 
@@ -46,6 +48,6 @@ Model weights and dependencies are not stored. After a real restart the runtime/
 
 Eight offline tests cover multi-action resume and saved completion, single-action resume, fresh-request state after abandonment, replacement by a new question, non-destructive failed restore, preservation of step-1 rows, clarification routing, and invalid runtime data. Notebook parts A–C passed, including restore and execution in a separate Python process. Live model output requires the local live check.
 
-Optional offline tests (Agent1 must be importable in the environment):
+Optional offline tests (RetailFlow must be importable in the environment):
 
     python -m unittest discover -s tests -p test_agent_checkpoints.py -v

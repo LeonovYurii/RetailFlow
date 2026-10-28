@@ -1,6 +1,8 @@
-# Agent1: sessions, MongoDB comparison, and simple chat
+# RetailFlow: sessions, MongoDB comparison, and simple chat
 
-Prerequisites: SQLite steps 1 and 2. Merge src, notebooks and tests from this ZIP into the matching Agent1 folders. All supplied application files are new; no existing source replacements or patches are needed. Keep /data/local/ in .gitignore.
+> Historical implementation notes for RetailFlow. For current installation and startup, use the [main README](readme.md). Original archive names, paths, commands, and notebook references are retained.
+
+Prerequisites: SQLite steps 1 and 2. Merge src, notebooks and tests from this ZIP into the matching RetailFlow folders. All supplied application files are new; no existing source replacements or patches are needed. Keep /data/local/ in .gitignore.
 
 ## 1. Finish sessions (SQLite)
 
@@ -55,4 +57,4 @@ Optional repeat:
 
     python -m unittest discover -s tests -p test_sessions.py -v
 
-Agent1 must be installed/importable in that terminal environment. No need to rerun all previous model tests just to install these additive modules.
+RetailFlow must be installed/importable in that terminal environment. No need to rerun all previous model tests just to install these additive modules.

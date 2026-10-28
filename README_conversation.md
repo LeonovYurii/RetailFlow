@@ -1,5 +1,7 @@
 # Pending conversation patch
 
+> Historical implementation notes for RetailFlow. For current installation and startup, use the [main README](readme.md). Original archive names, paths, commands, and notebook references are retained.
+
 Apply **after** agent1_v2_integration.zip. Merge `src/`, `tests/`, and `notebooks/` into the project root, replacing only the two supplied source modules. Save existing changes in Git first. No data, adapter, or experiment folders move.
 
 ## Behaviour
@@ -11,7 +13,7 @@ Apply **after** agent1_v2_integration.zip. Merge `src/`, `tests/`, and `notebook
 - An ID inside a different operation, such as "Cancel ORD-123", is not automatically treated as tracking input.
 
 ## Run
-Restart the kernel after replacing modules; open notebook 15 with the Agent1 kernel. Its setup is independent of notebook 14; it uses the same classifier, adapter and knowledge paths. Do not keep both notebooks' GPU models loaded.
+Restart the kernel after replacing modules; open notebook 15 with the RetailFlow kernel. Its setup is independent of notebook 14; it uses the same classifier, adapter and knowledge paths. Do not keep both notebooks' GPU models loaded.
 
 From the project root in PowerShell:
 ```powershell

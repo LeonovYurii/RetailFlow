@@ -1,8 +1,16 @@
-# Agent1 — Retail support agent
+# RetailFlow — Retail support agent
 
-Agent1 combines intent classification, LLM planning, business tools, grounded response generation, and persistent conversations. A local Gradio interface lets you ask retail questions, track orders, execute multiple independent lookups, and resume unfinished requests after reopening a conversation.
+RetailFlow combines intent classification, LLM planning, business tools, grounded response generation, and persistent conversations. A local Gradio interface lets you ask retail questions, track orders, execute multiple independent lookups, and resume unfinished requests after reopening a conversation.
 
 Order and inventory tools currently use **fixtures, not operational business data**. Store information comes from a small retail knowledge file. Conversation storage supports SQLite and MongoDB; it is separate from business-data storage.
+
+## Project name
+
+**RetailFlow** is the public project name. The Python package remains named
+`agent1` to preserve imports and compatibility with the saved classifier.
+Commands such as `python -m agent1.chat`, the `agent1-chat` entry point,
+database names, and existing artifact filenames are unchanged. Older notebooks,
+transcripts, and the current interface may still display the original name.
 
 ## Capabilities
 
@@ -34,7 +42,7 @@ The planner uses the base language model with its response adapter temporarily d
 
 Use Python 3.12 and a CUDA-enabled PyTorch installation on a compatible NVIDIA GPU. The existing response generator loads the base model in 4-bit NF4 using bitsandbytes. **This launcher does not provide CPU-only or Ollama inference.** Loading can take several minutes, and first use may download base-model and embedding weights. Close any notebook kernel holding the same model before starting the app on a memory-constrained GPU.
 
-The repository does not include the trained classifier or adapter weights. A source checkout alone is not sufficient for live inference. Supply these assets from your existing Agent1 setup or obtain a compatible artifact bundle from the maintainer:
+The repository does not include the trained classifier or adapter weights. A source checkout alone is not sufficient for live inference. Supply these assets from your existing RetailFlow setup or obtain a compatible artifact bundle from the maintainer:
 
 | Asset | Default location | Notes |
 | --- | --- | --- |
@@ -48,7 +56,7 @@ The classifier and fine-tuning notebooks document artifact creation. Historical 
 
 ## Install and launch
 
-From the repository root, activate your Python environment. In an existing working Agent1 environment, install the interface without upgrading the inference stack:
+From the repository root, activate your Python environment. In an existing working RetailFlow environment, install the interface without upgrading the inference stack:
 
 ```bash
 python -m pip install -e ".[chat]"
@@ -75,6 +83,20 @@ python -m agent1.chat --console
 ```
 
 Paths are relative to the current working directory unless absolute. `agent1-chat` is also installed as a command. `--help` and `--check-config` do not load models or connect to the database.
+
+## Quick interface guide
+
+| Action | What to do |
+| --- | --- |
+| Start | Run `python -m agent1.chat` and wait for model loading. |
+| Open the interface | Visit http://127.0.0.1:7860 if the browser does not open automatically. |
+| Send a request | Type a message and click **Send**. |
+| Resume | Click **Refresh list**, select a saved conversation, then **Open**. |
+| Close the page | Close the browser tab; the Python server keeps running. |
+| Stop completely | Wait for **Saved**, then press **Ctrl+C** in the terminal that launched the app. |
+
+Reopening the page while the server is running does not reload the model.
+Restarting the Python process does. Saved conversations survive a restart.
 
 ## Conversations and recovery
 

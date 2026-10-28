@@ -1,6 +1,8 @@
-# Agent1 V2 integration
+# RetailFlow V2 integration
 
-Copy the `src`, `notebooks`, and `tests` contents into the matching folders of your existing Agent1 project. This is a patch, not a replacement for the entire project. Keep the original files in Git before applying it. No models or data are bundled.
+> Historical implementation notes for RetailFlow. For current installation and startup, use the [main README](readme.md). Original archive names, paths, commands, and notebook references are retained.
+
+Copy the `src`, `notebooks`, and `tests` contents into the matching folders of your existing RetailFlow project. This is a patch, not a replacement for the entire project. Keep the original files in Git before applying it. No models or data are bundled.
 
 ## Changed modules
 - `src/agent1/agent.py`: inject an optional response service; connect informational routes to knowledge; preserve the existing tracking, clarification and unsupported-action paths.
@@ -12,7 +14,7 @@ Copy the `src`, `notebooks`, and `tests` contents into the matching folders of y
 Existing constructor calls remain supported; passing no response service preserves the earlier workflow. The generator's prompt builder and the actual tool implementations are unchanged.
 
 ## Run
-1. Restart kernels holding old modules/models. Open notebook 14 with the Agent1 `.venv` kernel.
+1. Restart kernels holding old modules/models. Open notebook 14 with the RetailFlow `.venv` kernel.
 2. Select your saved ensemble path if the first cell finds several classifier files.
 3. Run the setup and demonstration cells. The notebook loads one Llama model and temporarily disables its adapter for request analysis. Sentence embeddings run on CPU.
 4. Keep adapter files at `models/adapter_v2/` and knowledge at `data/knowledge/demo_retail_knowledge_v1.json`.

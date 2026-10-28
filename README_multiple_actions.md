@@ -1,12 +1,14 @@
-# Agent1: multiple independent actions
+# RetailFlow: multiple independent actions
+
+> Historical implementation notes for RetailFlow. For current installation and startup, use the [main README](readme.md). Original archive names, paths, commands, and notebook references are retained.
 
 Built against agent1.rar + agent1_v2_integration.zip + agent1_conversation_patch.zip supplied in this conversation. This is an overlay patch, not a full project or model download.
 
 ## Install in VS Code
 
-1. Save/commit your current Agent1 work. Restart the kernel of notebook 15 to release GPU memory.
+1. Save/commit your current RetailFlow work. Restart the kernel of notebook 15 to release GPU memory.
 2. Extract this archive to a temporary folder. Copy its `src`, `tests`, and `notebooks` folders **into your existing project root**, merging folders and replacing matching files. Do not replace/delete whole directories. If you modified these files after the conversation patch, review `changes.patch` and merge those edits.
-3. Open `notebooks/16_test_multiple_actions.ipynb` with the existing Agent1 `.venv` kernel.
+3. Open `notebooks/16_test_multiple_actions.ipynb` with the existing RetailFlow `.venv` kernel.
 4. Run Part A (offline tests). Then run Part B and the live checks in order. Set CLASSIFIER_PATH to the same saved classifier used in notebook 15 if needed.
 
 No installation, classifier retraining, adapter training, or database setup is required in your existing environment.
