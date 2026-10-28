@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="1030" viewBox="0 0 960 1030" role="img" aria-labelledby="title desc">
+<title id="title">RetailFlow request and persistence flow</title>
+<desc id="desc">A new message enters the chat session, intent routing and LLM planning. The validated plan leads to a control-flow reply, tool execution, or knowledge retrieval. Tools and knowledge support response generation. The reply and state are checkpointed to SQLite or MongoDB before the normal saved reply is displayed. Pending replies may resume an existing plan.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/></marker></defs>
+<rect width="960" height="1030" rx="16" fill="#f8fafc"/>
+<g font-family="Arial, Helvetica, sans-serif" text-anchor="middle">
+<path d="M 480 106 V 138" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 208 V 240" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 310 V 342" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 412 V 446 H 170 V 480" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 412 V 480" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 446 H 790 V 480" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 560 V 584 H 635 V 606" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 790 560 V 584 H 635" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 170 560 V 741 H 330" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 635 676 V 741 H 630" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 776 V 818" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 480 888 V 930" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="300.0" y="36" width="360" height="70" rx="12" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="480" y="66.0" font-size="20" font-weight="600" fill="#0f172a">User message</text>
+<text x="480" y="91.0" font-size="16" fill="#475569">Gradio browser or console</text>
+<rect x="300.0" y="138" width="360" height="70" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="480" y="168.0" font-size="20" font-weight="600" fill="#0f172a">Chat session</text>
+<text x="480" y="193.0" font-size="16" fill="#475569">Current conversation state</text>
+<rect x="270.0" y="240" width="420" height="70" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="480" y="270.0" font-size="20" font-weight="600" fill="#0f172a">Routing and planning</text>
+<text x="480" y="295.0" font-size="16" fill="#475569">Intent ensemble + base LLM</text>
+<rect x="300.0" y="342" width="360" height="70" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="480" y="372.0" font-size="20" font-weight="600" fill="#0f172a">Validated plan</text>
+<text x="480" y="397.0" font-size="16" fill="#475569">Choose the next operation</text>
+<rect x="30.0" y="480" width="280" height="80" rx="12" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
+<text x="170" y="515.0" font-size="20" font-weight="600" fill="#0f172a">Control-flow reply</text>
+<text x="170" y="540.0" font-size="16" fill="#475569">Clarify or collect arguments</text>
+<rect x="340.0" y="480" width="280" height="80" rx="12" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1.5"/>
+<text x="480" y="515.0" font-size="20" font-weight="600" fill="#0f172a">Business tools</text>
+<text x="480" y="540.0" font-size="16" fill="#475569">Order and stock fixtures</text>
+<rect x="650.0" y="480" width="280" height="80" rx="12" fill="#e0e7ff" stroke="#a5b4fc" stroke-width="1.5"/>
+<text x="790" y="515.0" font-size="20" font-weight="600" fill="#0f172a">Retail knowledge</text>
+<text x="790" y="540.0" font-size="16" fill="#475569">Documents selected by intent</text>
+<rect x="445.0" y="606" width="380" height="70" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="635" y="636.0" font-size="20" font-weight="600" fill="#0f172a">Response generation</text>
+<text x="635" y="661.0" font-size="16" fill="#475569">Grounded answer or factual fallback</text>
+<rect x="330.0" y="706" width="300" height="70" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+<text x="480" y="748.0" font-size="20" font-weight="600" fill="#0f172a">Reply ready</text>
+<rect x="270.0" y="818" width="420" height="70" rx="12" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+<text x="480" y="848.0" font-size="20" font-weight="600" fill="#0f172a">Save conversation checkpoint</text>
+<text x="480" y="873.0" font-size="16" fill="#475569">SQLite or MongoDB</text>
+<rect x="300.0" y="930" width="360" height="70" rx="12" fill="#dbeafe" stroke="#60a5fa" stroke-width="1.5"/>
+<text x="480" y="960.0" font-size="20" font-weight="600" fill="#0f172a">Display saved reply</text>
+<text x="480" y="985.0" font-size="16" fill="#475569">Gradio browser or console</text>
+</g></svg>

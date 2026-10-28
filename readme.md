@@ -24,17 +24,16 @@ transcripts, and the current interface may still display the original name.
 
 ## Architecture
 
-```mermaid
-flowchart TD
-    A[Browser or console] --> B[Chat session]
-    B --> C[Intent ensemble and LLM planner]
-    C --> D[Validated plan and argument collection]
-    D --> E[Tools or intent-selected knowledge]
-    E --> F[Grounded response]
-    F --> G[Conversation checkpoint]
-    G --> H[SQLite or MongoDB]
-    G --> A
-```
+![RetailFlow architecture: routing and planning branch into control-flow replies, tools, or knowledge; completed replies are checkpointed before display.](docs/architecture.svg)
+
+The diagram shows the normal path for a new request. Pending follow-ups can
+resume an existing plan instead of repeating routing and planning. Clarification
+and missing-argument questions return directly from control flow, without tool
+execution. Responses without a usable source use an explicit fallback.
+Each completed turn, including a clarification question, is saved with its
+conversation state. Processing and save failures follow the recovery behavior
+described below.
+
 
 The planner uses the base language model with its response adapter temporarily disabled. Response generation uses the adapter. Models are loaded once per process; inference and session mutations are serialized. Each browser tab has separate in-memory conversation state. Mutable analyzer and response-service diagnostics are created per agent, while model weights are shared.
 
@@ -188,6 +187,33 @@ Other useful requests: “Track order ORD-123 and track order ORD-456”, “Wha
 Replace the fixture lookups in `src/agent1/tools/order_service.py` and `stock_service.py` with database queries or service API calls. Preserve their input contracts and `ToolResult` outputs, including explicit failures and unknown inventory. This lets planning, argument collection, response grounding, and conversation persistence continue using the same interfaces.
 
 Real integration still requires credentials, authorization, schema mapping, and error handling. Changing the conversation backend to MongoDB does **not** connect live order or supply data. The knowledge source can likewise be replaced or extended through the existing knowledge-store interface.
+
+## Training data and model provenance
+
+RetailFlow uses the
+[Bitext retail/e-commerce chatbot dataset](https://huggingface.co/datasets/bitext/Bitext-retail-ecommerce-llm-chatbot-training-dataset)
+by **Bitext** for intent-classifier training and the initial response fine-tuning
+stage. The dataset provides retail instructions, intent labels, categories,
+responses, and linguistic tags. Its dataset card lists the
+[Community Data License Agreement — Sharing 1.0](https://cdla.dev/sharing-1-0/).
+
+The training stages have distinct roles:
+
+| Component or stage | Training data and role |
+| --- | --- |
+| Intent ensemble | Bitext request text and intent labels support the TF-IDF and sentence-embedding classifiers. See [notebook 02](notebooks/02_intent_classifier.ipynb). |
+| Initial response adapter (v1) | Filtered and prepared Bitext instruction/response examples, including placeholder handling. See [data preparation](notebooks/06_response_finetuning.ipynb) and [fine-tuning](notebooks/07_llama32_finetuning.ipynb). |
+| Current response adapter (v2) | Project-authored synthetic examples pair retail requests with explicit knowledge or tool results. The v2 training notebook initializes a fresh LoRA adapter on the base model; it does not continue from v1. See [grounding-data preparation](notebooks/10_prepare_grounding_v2.ipynb) and [v2 fine-tuning](notebooks/11_finetune_grounding_v2_colab.ipynb). |
+| Request planner | Uses the base model with the response adapter disabled; no separate planner fine-tuning is performed by this pipeline. |
+
+The base language model is **meta-llama/Llama-3.2-3B-Instruct**. Bitext is a
+task-specific training-data source for this project, not the base model's
+pretraining corpus. RetailFlow's order, inventory, and store-hour fixtures are
+separate from the Bitext dataset and are not live business records.
+
+Dataset terms, upstream model terms, and the project's own licensing are
+separate. Credit and licensing information for the source dataset should
+accompany any redistributed dataset-derived material.
 
 ## Validation and artifacts
 
