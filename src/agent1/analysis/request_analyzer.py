@@ -187,7 +187,9 @@ For multi_action:
 
 For single_action:
 - Set top-level intent and action.
-- Leave steps empty.
+- Set steps to [] even when required arguments are missing.
+- The application collects missing arguments after planning.
+- Never duplicate this operation inside steps.
 
 For clarification:
 - Leave steps empty.
@@ -235,9 +237,10 @@ Output:
   "reason": "Two independent lookups."
 }
 
-A known operation with missing arguments is still a planned operation.
-Retain it in steps with empty arguments. The application collects missing
-arguments after planning. Do not drop other tasks in the same request.
+In a multi_action plan, a known operation with missing arguments is still
+a planned operation. Retain it in steps with empty arguments. The application
+collects missing arguments after planning. Do not drop other requested tasks.
+For single_action, keep steps: [] even when the order number is missing.
 
 Example:
 User: Track my order and check the red jacket.
@@ -444,6 +447,33 @@ Return the correct ActionPlan.
                 "intent": None,
                 "action": None,
             }
+
+        # Remove only a redundant, argument-free copy of a single operation.
+        # Never discard supplied arguments, dependencies, or conditions.
+        steps = data.get("steps")
+        if (
+            data.get("request_type") == "single_action"
+            and isinstance(steps, list)
+            and len(steps) == 1
+            and isinstance(steps[0], dict)
+            and isinstance(data.get("intent"), str)
+            and bool(data["intent"])
+            and data.get("action") is not None
+            and steps[0].get("intent") == data["intent"]
+            and steps[0].get("action") == data["action"]
+            and steps[0].get("arguments") == {}
+            and steps[0].get("depends_on") == []
+            and "condition" in steps[0]
+            and steps[0]["condition"] is None
+            and set(steps[0]) == {
+                "intent", "action", "arguments", "depends_on", "condition"
+            }
+            and data.get("needs_clarification") is False
+            and data.get("clarification_question") is None
+            and data.get("candidate_intents") == []
+            and data.get("candidate_actions") == []
+        ):
+            data = {**data, "steps": []}
 
         try:
             return ActionPlan.model_validate(
