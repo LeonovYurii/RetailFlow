@@ -22,7 +22,7 @@ inference = [
     "peft>=0.17,<1",
     "accelerate>=1,<2",
     "bitsandbytes>=0.45,<1",
-    "sentence-transformers>=3,<6",
+    "sentence-transformers>=3,<7",
 ]
 mongo = ["pymongo>=4.6,<5"]
 

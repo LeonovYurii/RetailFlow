@@ -52,7 +52,36 @@ The repository does not include the trained classifier or adapter weights. A sou
 | Sentence embedding model | Resolved from the saved classifier | Downloaded/cached by sentence-transformers; runs on CPU. |
 | Retail knowledge | `data/knowledge/demo_retail_knowledge_v1.json` | Included in this repository. |
 
-The classifier and fine-tuning notebooks document artifact creation. Historical dependency versions are recorded under `experiments/`; they are provenance records, not a universal environment lock. There is currently no published, versioned model-bundle download linked from this repository.
+The classifier and fine-tuning notebooks document artifact creation. Historical dependency versions are recorded under `experiments/`; they are provenance records, not a universal environment lock. The model assets are distributed separately as a release attachment; see the download section below.
+
+## Download the model bundle
+
+**Built with Llama.** The response adapter is named **Llama-RetailFlow response adapter v2**
+and uses **meta-llama/Llama-3.2-3B-Instruct**. Base-model weights are not included.
+Upstream license and use-policy notices are included in the bundle.
+
+For release v0.1.0, download the assets from the
+[release page](https://github.com/LeonovYurii/RetailFlow/releases/tag/v0.1.0):
+
+- [Model bundle](https://github.com/LeonovYurii/RetailFlow/releases/download/v0.1.0/retailflow-models-v0.1.0.zip)
+- [SHA-256 checksum](https://github.com/LeonovYurii/RetailFlow/releases/download/v0.1.0/retailflow-models-v0.1.0.sha256)
+
+These links become available when the maintainer publishes v0.1.0 and attaches
+the named files. GitHub's automatic source-code ZIP does not contain the model assets.
+
+Extract the model bundle into the repository root so its models folder merges
+with the project models folder. Retain model_bundle for notices and checksums.
+Existing users who already have the same working assets do not need to replace them.
+
+The [reference environment](environment/retailflow_environment.json) records the
+maintainer's working Windows/Python 3.12.10 installation. It includes
+scikit-learn 1.9.0 and sentence-transformers 6.0.1. The
+[version constraints](environment/constraints-windows.txt) cover reported direct
+packages, not a full transitive lock or a verified clean installation.
+Install the matching CUDA-enabled PyTorch build separately, then optionally
+use the constraints when installing:
+
+    python -m pip install -e ".[chat,inference]" -c environment/constraints-windows.txt
 
 ## Install and launch
 

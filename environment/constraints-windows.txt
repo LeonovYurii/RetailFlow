@@ -1,0 +1,18 @@
+# Owner-reported working environment: Windows AMD64, Python 3.12.10.
+# Direct-package version constraints, not a complete dependency lock.
+# Install the matching CUDA-enabled PyTorch build separately first.
+numpy==2.5.2
+scipy==1.18.1
+joblib==1.6.0
+scikit-learn==1.9.0
+sentence-transformers==6.0.1
+torch==2.14.0+cu126
+transformers==5.16.1
+tokenizers==0.23.2
+peft==0.21.2
+accelerate==1.15.0
+bitsandbytes==0.50.2
+huggingface-hub==1.30.0
+pydantic==2.13.5
+gradio==6.31.0
+pymongo==4.19.0
